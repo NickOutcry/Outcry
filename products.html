@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Products - Outcry</title>
+    <link rel="stylesheet" href="/static/styles.css">
+    <link rel="stylesheet" href="/static/products.css">
+</head>
+<body>
+    <header class="header">
+        <div class="header-image">
+            <img src="/static/outcry_header.png" alt="Outcry Header" class="header-logo">
+        </div>
+        <nav class="nav">
+            <div class="container">
+                <ul class="nav-list">
+                    <li class="nav-item">
+                        <a href="/" class="nav-link">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/clients" class="nav-link">Clients</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/products" class="nav-link active">Products</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/workflow" class="nav-link">Work Orders</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/jobs" class="nav-link">Jobs</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/projects" class="nav-link">Projects</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/staff" class="nav-link">Staff</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <main class="main">
+        <div class="container">
+            <div class="products-header">
+                <h1>Product Management</h1>
+                <div class="header-actions">
+                    <button class="header-action-btn" onclick="showAddCategoryModal()">
+                        + Add Category
+                    </button>
+                    <button class="header-action-btn" onclick="showAddProductModal()">
+                        + Add Product
+                    </button>
+                </div>
+            </div>
+
+            <!-- Products Layout with Left Sidebar -->
+            <div class="products-layout">
+                <!-- Category Tabs Sidebar -->
+                <div class="category-tabs-sidebar" id="categoryTabs">
+                    <!-- Tabs will be populated by JavaScript -->
+                </div>
+
+                <!-- Products Table -->
+                <div class="products-table-container">
+                    <table class="products-table" id="productsTable">
+                        <thead>
+                            <tr>
+                                <th>Product Name</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody id="productsTableBody">
+                            <!-- Products will be populated by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Add Category Modal -->
+    <div class="modal" id="addCategoryModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Add New Category</h2>
+                <button class="modal-close" onclick="hideAddCategoryModal()">&times;</button>
+            </div>
+            <form id="addCategoryForm" class="modal-form">
+                <div class="form-group">
+                    <label for="categoryName">Category Name *</label>
+                    <input type="text" id="categoryName" name="name" required>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn btn-secondary" onclick="hideAddCategoryModal()">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Add Category</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Add/Edit Product Modal -->
+    <div class="modal" id="productModal">
+        <div class="modal-content">
+            <button type="button" class="btn btn-delete" id="deleteProductBtn" onclick="deleteProduct(currentProduct.product_id)" style="display: none;">Delete Product</button>
+            <div class="modal-header">
+                <div class="editable-title-container">
+                    <button class="edit-title-btn" id="editTitleBtn" onclick="toggleTitleEdit()">+edit</button>
+                    <h2 id="productModalTitle" class="editable-title">Add New Product</h2>
+                    <input type="text" id="productTitleInput" class="title-input" style="display: none;" onblur="saveTitleEdit()" onkeypress="handleTitleKeypress(event)">
+                </div>
+                <div class="modal-header-right">
+                    <div class="category-container">
+                        <div class="category-header" onclick="toggleCategoryDropdown()">
+                            <span id="categoryDisplay" class="category-display">Select Category</span>
+                            <span class="dropdown-arrow"></span>
+                        </div>
+                        <div id="categoryDropdown" class="category-dropdown" style="display: none;">
+                            <!-- Categories will be populated by JavaScript -->
+                        </div>
+                        <input type="hidden" id="productCategory" name="product_category_id" required>
+                    </div>
+                    <div class="measure-type-container">
+                        <div class="measure-type-header" onclick="toggleMeasureTypeDropdown()">
+                            <span id="measureTypeDisplay" class="measure-type-display">Select Measure Type</span>
+                            <span class="dropdown-arrow"></span>
+                        </div>
+                        <div id="measureTypeDropdown" class="measure-type-dropdown" style="display: none;">
+                            <!-- Measure types will be populated by JavaScript -->
+                        </div>
+                        <input type="hidden" id="productMeasureType" name="measure_type_id">
+                    </div>
+                    <button class="modal-close" onclick="hideProductModal()">&times;</button>
+                </div>
+            </div>
+            <form id="productForm" class="modal-form">
+                <input type="hidden" id="productId" name="product_id">
+                <div class="form-group">
+                    <div class="product-variables-list" id="productVariablesList">
+                        <div class="product-variables-header">
+                            <h3>Product Variables</h3>
+                        </div>
+                        <div class="product-variables-content">
+                            <!-- Variables will be populated by JavaScript -->
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-actions">
+                    <div class="modal-actions-right">
+                        <button type="button" class="btn btn-secondary" onclick="hideProductModal()">Cancel</button>
+                        <button type="submit" class="btn btn-primary" id="productSubmitBtn">Add Product</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Product Variables Modal -->
+    <div class="modal" id="variablesModal">
+        <div class="modal-content modal-large">
+            <div class="modal-header">
+                <h2 id="variablesModalTitle">Product Variables</h2>
+                <button class="modal-close" onclick="hideVariablesModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="variables-header">
+                    <h3 id="variablesProductName">Product Name</h3>
+                    <button class="btn btn-primary" onclick="showAddVariableModal()">
+                        <span class="btn-icon">+</span>
+                        Add Variable
+                    </button>
+                </div>
+                
+                <div class="variables-list" id="variablesList">
+                    <!-- Variables will be populated by JavaScript -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add/Edit Variable Modal -->
+    <div class="modal" id="variableModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="variableModalTitle">Add New Variable</h2>
+                <button class="modal-close" onclick="hideVariableModal()">&times;</button>
+            </div>
+            <form id="variableForm" class="modal-form">
+                <input type="hidden" id="variableId" name="product_variable_id">
+                <input type="hidden" id="variableProductId" name="product_id">
+                <div class="form-group">
+                    <label for="variableName">Variable Name *</label>
+                    <input type="text" id="variableName" name="name" required>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="variableBaseCost">Base Cost *</label>
+                        <input type="number" id="variableBaseCost" name="base_cost" step="0.01" min="0" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="variableMultiplierCost">Multiplier Cost *</label>
+                        <input type="number" id="variableMultiplierCost" name="multiplier_cost" step="0.01" min="0" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="variableDataType">Data Type *</label>
+                    <select id="variableDataType" name="data_type" required>
+                        <option value="">Select Data Type</option>
+                        <option value="text">Text</option>
+                        <option value="number">Number</option>
+                        <option value="select">Select</option>
+                        <option value="boolean">Boolean</option>
+                    </select>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn btn-secondary" onclick="hideVariableModal()">Cancel</button>
+                    <button type="submit" class="btn btn-primary" id="variableSubmitBtn">Add Variable</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Variable Options Modal -->
+    <div class="modal" id="optionsModal">
+        <div class="modal-content modal-large">
+            <div class="modal-header">
+                <h2 id="optionsModalTitle">Variable Options</h2>
+                <button class="modal-close" onclick="hideOptionsModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="options-header">
+                    <h3 id="optionsVariableName">Variable Name</h3>
+                    <button class="btn btn-primary" onclick="showAddOptionModal()">
+                        <span class="btn-icon">+</span>
+                        Add Option
+                    </button>
+                </div>
+                
+                <div class="options-list" id="optionsList">
+                    <!-- Options will be populated by JavaScript -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add/Edit Option Modal -->
+    <div class="modal" id="optionModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="optionModalTitle">Add New Option</h2>
+                <button class="modal-close" onclick="hideOptionModal()">&times;</button>
+            </div>
+            <form id="optionForm" class="modal-form">
+                <input type="hidden" id="optionId" name="variable_option_id">
+                <input type="hidden" id="optionVariableId" name="product_variable_id">
+                <div class="form-group">
+                    <label for="optionName">Option Name *</label>
+                    <input type="text" id="optionName" name="name" required>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="optionBaseCost">Base Cost *</label>
+                        <input type="number" id="optionBaseCost" name="base_cost" step="0.01" min="0" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="optionMultiplierCost">Multiplier Cost *</label>
+                        <input type="number" id="optionMultiplierCost" name="multiplier_cost" step="0.01" min="0" required>
+                    </div>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn btn-secondary" onclick="hideOptionModal()">Cancel</button>
+                    <button type="submit" class="btn btn-primary" id="optionSubmitBtn">Add Option</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="/static/products.js"></script>
+</body>
+</html>

@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Staff - Outcry</title>
+    <link rel="stylesheet" href="/static/styles.css">
+    <link rel="stylesheet" href="/static/staff.css">
+</head>
+<body>
+    <header class="header">
+        <div class="header-image">
+            <img src="/static/outcry_header.png" alt="Outcry Header" class="header-logo">
+        </div>
+        <nav class="nav">
+            <div class="container">
+                <ul class="nav-list">
+                    <li class="nav-item">
+                        <a href="/" class="nav-link">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/clients" class="nav-link">Clients</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/products" class="nav-link">Products</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/jobs" class="nav-link">Jobs</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/projects" class="nav-link">Projects</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/staff" class="nav-link active">Staff</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <main class="main">
+        <div class="container">
+            <div class="staff-header">
+                <h1>Staff</h1>
+                <button class="btn btn-primary" onclick="showAddStaffModal()">
+                    <span class="btn-icon">+</span>
+                    Add New Staff
+                </button>
+            </div>
+            
+            <div class="staff-grid" id="staffGrid">
+                <!-- Staff cards will be populated by JavaScript -->
+            </div>
+        </div>
+    </main>
+
+    <!-- Add/Edit Staff Modal -->
+    <div class="modal" id="staffModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="staffModalTitle">Add New Staff</h2>
+                <button class="modal-close" onclick="hideStaffModal()">&times;</button>
+            </div>
+            <form id="staffForm" class="modal-form">
+                <input type="hidden" id="staffId" name="staff_id">
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="staffFirstName">First Name *</label>
+                        <input type="text" id="staffFirstName" name="first_name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="staffSurname">Surname *</label>
+                        <input type="text" id="staffSurname" name="surname" required>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="staffPhone">Phone</label>
+                    <input type="tel" id="staffPhone" name="phone">
+                </div>
+                
+                <div class="form-group">
+                    <label for="staffAddress">Address</label>
+                    <input type="text" id="staffAddress" name="address">
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="staffSuburb">Suburb</label>
+                        <input type="text" id="staffSuburb" name="suburb">
+                    </div>
+                    <div class="form-group">
+                        <label for="staffState">State</label>
+                        <select id="staffState" name="state">
+                            <option value="">Select State</option>
+                            <option value="NSW">NSW</option>
+                            <option value="VIC">VIC</option>
+                            <option value="QLD">QLD</option>
+                            <option value="WA">WA</option>
+                            <option value="SA">SA</option>
+                            <option value="TAS">TAS</option>
+                            <option value="ACT">ACT</option>
+                            <option value="NT">NT</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="staffPostcode">Postcode</label>
+                        <input type="number" id="staffPostcode" name="postcode" min="1000" max="9999">
+                    </div>
+                    <div class="form-group">
+                        <label for="staffDOB">Date of Birth</label>
+                        <input type="date" id="staffDOB" name="dob">
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="staffEmergencyContact">Emergency Contact</label>
+                    <input type="text" id="staffEmergencyContact" name="emergency_contact">
+                </div>
+                
+                <div class="form-group">
+                    <label for="staffEmergencyPhone">Emergency Contact Phone</label>
+                    <input type="tel" id="staffEmergencyPhone" name="emergency_contact_number">
+                </div>
+                
+                <div class="modal-actions">
+                    <button type="button" class="btn btn-secondary" onclick="hideStaffModal()">Cancel</button>
+                    <button type="submit" class="btn btn-primary" id="staffSubmitBtn">Add Staff</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Staff Details Modal -->
+    <div class="modal" id="staffDetailsModal">
+        <div class="modal-content large-modal">
+            <div class="modal-header">
+                <h2 id="staffDetailsTitle">Staff Details</h2>
+                <button class="modal-close" onclick="hideStaffDetailsModal()">&times;</button>
+            </div>
+            <div class="staff-details-content" id="staffDetailsContent">
+                <!-- Staff details will be populated by JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <script src="/static/staff.js"></script>
+</body>
+</html>
+

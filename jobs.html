@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jobs - Outcry</title>
+    <link rel="stylesheet" href="/static/styles.css">
+    <link rel="stylesheet" href="/static/jobs.css">
+</head>
+<body>
+    <header class="header">
+        <div class="header-image">
+            <img src="/static/outcry_header.png" alt="Outcry Header" class="header-logo">
+        </div>
+        <nav class="nav">
+            <div class="container">
+                <ul class="nav-list">
+                    <li class="nav-item">
+                        <a href="/" class="nav-link">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/clients" class="nav-link">Clients</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/products" class="nav-link">Products</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/jobs" class="nav-link active">Jobs</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/workflow" class="nav-link">Work Orders</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/projects" class="nav-link">Projects</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/staff" class="nav-link">Staff</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <main class="main">
+        <div class="container">
+            <div class="jobs-header">
+                <h1>Jobs</h1>
+                <button class="btn btn-primary" onclick="showAddJobModal()">
+                    <span class="btn-icon">+</span>
+                    Create New Job
+                </button>
+            </div>
+            
+            <div class="jobs-table-container">
+                <table class="jobs-table" id="jobsTable">
+                    <thead>
+                        <tr>
+                            <th>Job Number</th>
+                            <th>Project</th>
+                            <th>Job Reference</th>
+                            <th>Client</th>
+                            <th>Job Status</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody id="jobsTableBody">
+                        <!-- Jobs will be populated by JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+
+    <!-- Add/Edit Job Modal -->
+    <div class="modal" id="jobModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="jobModalTitle">Create New Job</h2>
+                <button class="modal-close" onclick="hideJobModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="jobForm" class="modal-form">
+                    <input type="hidden" id="jobId" name="job_id">
+                    
+                    <div class="form-group">
+                        <label for="jobReference">Job Reference *</label>
+                        <input type="text" id="jobReference" name="reference" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="jobClient">Client *</label>
+                        <div class="select-with-button">
+                            <select id="jobClient" name="client_id" required onchange="updateContacts()">
+                                <option value="">Select Client</option>
+                                <!-- Clients will be populated by JavaScript -->
+                            </select>
+                            <button type="button" class="btn btn-secondary btn-sm" onclick="showCreateClientModal()">
+                                <span class="btn-icon">+</span>
+                                New Client
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="jobProject">Project *</label>
+                        <div class="select-with-button">
+                            <select id="jobProject" name="project_id" required>
+                                <option value="">Select Project</option>
+                                <!-- Projects will be populated by JavaScript -->
+                            </select>
+                            <button type="button" class="btn btn-secondary btn-sm" onclick="showCreateProjectModal()">
+                                <span class="btn-icon">+</span>
+                                New Project
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="jobContact">Contact *</label>
+                        <div class="select-with-button">
+                            <select id="jobContact" name="contact_id" required>
+                                <option value="">Select Contact</option>
+                                <!-- Contacts will be populated by JavaScript -->
+                            </select>
+                            <button type="button" class="btn btn-secondary btn-sm" onclick="showCreateContactModal()">
+                                <span class="btn-icon">+</span>
+                                New Contact
+                            </button>
+                        </div>
+                    </div>
+                    
+                <div class="form-group">
+                    <label for="jobStaff">Project Manager *</label>
+                    <select id="jobStaff" name="staff_id" required>
+                        <option value="">Select Project Manager</option>
+                        <!-- Staff will be populated by JavaScript -->
+                    </select>
+                </div>
+                </form>
+            </div>
+            
+            <div class="modal-actions">
+                <button type="button" class="btn btn-secondary" onclick="hideJobModal()">Cancel</button>
+                <button type="button" class="btn btn-primary" id="jobSubmitBtn" onclick="submitJobForm()">Create Job</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Job Details Modal -->
+    <div class="modal" id="jobDetailsModal">
+        <div class="modal-content large-modal">
+            <div class="modal-header">
+                <h2 id="jobDetailsTitle">Job Details</h2>
+                <button class="modal-close" onclick="hideJobDetailsModal()">&times;</button>
+            </div>
+            <div class="job-details-content" id="jobDetailsContent">
+                <!-- Job details will be populated by JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Address Modal -->
+    <div class="modal" id="editAddressModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Edit Job Address</h2>
+                <button class="modal-close" onclick="hideEditAddressModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="addressForm" class="modal-form">
+                    <input type="hidden" id="addressJobId" name="job_id">
+                    
+                    <div class="form-group">
+                        <label for="editJobAddress">Job Address</label>
+                        <input type="text" id="editJobAddress" name="job_address" placeholder="Enter job address">
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="editJobSuburb">Suburb</label>
+                            <input type="text" id="editJobSuburb" name="suburb" placeholder="Enter suburb">
+                        </div>
+                        <div class="form-group">
+                            <label for="editJobState">State</label>
+                            <select id="editJobState" name="state">
+                                <option value="">Select State</option>
+                                <option value="NSW">NSW</option>
+                                <option value="VIC">VIC</option>
+                                <option value="QLD">QLD</option>
+                                <option value="WA">WA</option>
+                                <option value="SA">SA</option>
+                                <option value="TAS">TAS</option>
+                                <option value="ACT">ACT</option>
+                                <option value="NT">NT</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="editJobPostcode">Postcode</label>
+                            <input type="text" id="editJobPostcode" name="postcode" placeholder="Enter postcode" pattern="[0-9]{4}" maxlength="4">
+                        </div>
+                    </div>
+                    
+                    <div class="modal-actions">
+                        <button type="button" class="btn btn-secondary" onclick="hideEditAddressModal()">Cancel</button>
+                        <button type="button" class="btn btn-primary" onclick="saveAddressFromModal()">Save Address</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Create Project Modal -->
+    <div class="modal" id="createProjectModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Create New Project</h2>
+                <button class="modal-close" onclick="hideCreateProjectModal()">&times;</button>
+            </div>
+            <form id="createProjectForm" class="modal-form">
+                <div class="form-group">
+                    <label for="newProjectName">Project Name *</label>
+                    <input type="text" id="newProjectName" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="newProjectAddress">Address</label>
+                    <input type="text" id="newProjectAddress">
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="newProjectSuburb">Suburb</label>
+                        <input type="text" id="newProjectSuburb">
+                    </div>
+                    <div class="form-group">
+                        <label for="newProjectState">State</label>
+                        <select id="newProjectState">
+                            <option value="">Select State</option>
+                            <option value="NSW">NSW</option>
+                            <option value="VIC">VIC</option>
+                            <option value="QLD">QLD</option>
+                            <option value="WA">WA</option>
+                            <option value="SA">SA</option>
+                            <option value="TAS">TAS</option>
+                            <option value="ACT">ACT</option>
+                            <option value="NT">NT</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="newProjectPostcode">Postcode</label>
+                        <input type="text" id="newProjectPostcode" pattern="[0-9]{4}" maxlength="4">
+                    </div>
+                </div>
+                
+                <div class="modal-actions">
+                    <button type="button" class="btn btn-secondary" onclick="hideCreateProjectModal()">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Create Project</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Create Client Modal -->
+    <div class="modal" id="createClientModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Create New Client</h2>
+                <button class="modal-close" onclick="hideCreateClientModal()">&times;</button>
+            </div>
+            <form id="createClientForm" class="modal-form">
+                <div class="form-group">
+                    <label for="newClientName">Client Name *</label>
+                    <input type="text" id="newClientName" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="newClientAddress">Address</label>
+                    <input type="text" id="newClientAddress">
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="newClientSuburb">Suburb</label>
+                        <input type="text" id="newClientSuburb">
+                    </div>
+                    <div class="form-group">
+                        <label for="newClientState">State</label>
+                        <select id="newClientState">
+                            <option value="">Select State</option>
+                            <option value="NSW">NSW</option>
+                            <option value="VIC">VIC</option>
+                            <option value="QLD">QLD</option>
+                            <option value="WA">WA</option>
+                            <option value="SA">SA</option>
+                            <option value="TAS">TAS</option>
+                            <option value="ACT">ACT</option>
+                            <option value="NT">NT</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="newClientPostcode">Postcode</label>
+                        <input type="text" id="newClientPostcode" pattern="[0-9]{4}" maxlength="4">
+                    </div>
+                </div>
+                
+                <div class="modal-actions">
+                    <button type="button" class="btn btn-secondary" onclick="hideCreateClientModal()">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Create Client</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Quote Modal -->
+    <div class="modal" id="quoteModal">
+        <div class="modal-content large-modal">
+            <div class="modal-header">
+                <h2 id="quoteModalTitle">Create Quote</h2>
+                <button class="modal-close" onclick="hideQuoteModal()">&times;</button>
+            </div>
+            <div class="quote-content" id="quoteContent">
+                <!-- Quote content will be populated by JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Create Contact Modal -->
+    <div class="modal" id="createContactModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Create New Contact</h2>
+                <button class="modal-close" onclick="hideCreateContactModal()">&times;</button>
+            </div>
+            <form id="createContactForm" class="modal-form">
+                <div class="form-group">
+                    <label for="newContactClient">Client *</label>
+                    <select id="newContactClient" required>
+                        <option value="">Select Client</option>
+                        <!-- Clients will be populated by JavaScript -->
+                    </select>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="newContactFirstName">First Name *</label>
+                        <input type="text" id="newContactFirstName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="newContactSurname">Surname *</label>
+                        <input type="text" id="newContactSurname" required>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="newContactEmail">Email</label>
+                        <input type="email" id="newContactEmail">
+                    </div>
+                    <div class="form-group">
+                        <label for="newContactPhone">Phone</label>
+                        <input type="tel" id="newContactPhone">
+                    </div>
+                </div>
+                
+                <div class="modal-actions">
+                    <button type="button" class="btn btn-secondary" onclick="hideCreateContactModal()">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Create Contact</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Create New Billing Entity Modal -->
+    <div class="modal" id="createBillingEntityModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Create New Billing Entity</h2>
+                <button class="modal-close" onclick="hideCreateBillingEntityModal()">&times;</button>
+            </div>
+            <form id="createBillingEntityForm" class="modal-form">
+                <div class="form-group">
+                    <label for="newBillingEntity">Entity Name *</label>
+                    <input type="text" id="newBillingEntity" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="newBillingAddress">Address</label>
+                    <input type="text" id="newBillingAddress">
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="newBillingSuburb">Suburb</label>
+                        <input type="text" id="newBillingSuburb">
+                    </div>
+                    <div class="form-group">
+                        <label for="newBillingState">State</label>
+                        <select id="newBillingState">
+                            <option value="">Select State</option>
+                            <option value="NSW">NSW</option>
+                            <option value="VIC">VIC</option>
+                            <option value="QLD">QLD</option>
+                            <option value="WA">WA</option>
+                            <option value="SA">SA</option>
+                            <option value="TAS">TAS</option>
+                            <option value="ACT">ACT</option>
+                            <option value="NT">NT</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="newBillingPostcode">Postcode</label>
+                        <input type="text" id="newBillingPostcode" pattern="[0-9]{4}" maxlength="4">
+                    </div>
+                </div>
+                
+                <div class="modal-actions">
+                    <button type="button" class="btn btn-secondary" onclick="hideCreateBillingEntityModal()">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Create Billing Entity</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="/static/jobs.js"></script>
+</body>
+</html>

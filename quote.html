@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Quote - Outcry</title>
+    <link rel="stylesheet" href="/static/styles.css">
+    <link rel="stylesheet" href="/static/quote.css">
+</head>
+<body>
+    <header class="header">
+        <div class="header-image">
+            <img src="/static/outcry_header.png" alt="Outcry Header" class="header-logo">
+        </div>
+        <nav class="nav">
+            <div class="container">
+                <ul class="nav-list">
+                    <li class="nav-item">
+                        <a href="/" class="nav-link">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/clients" class="nav-link">Clients</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/products" class="nav-link">Products</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/jobs" class="nav-link">Jobs</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/projects" class="nav-link">Projects</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/staff" class="nav-link">Staff</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <main class="main">
+        <div class="container">
+            <div class="quote-header">
+                <div class="quote-info">
+                    <div class="quote-title-section">
+                        <h1>Create Quote</h1>
+                    </div>
+                    <div class="job-details">
+                        <div class="job-detail-item">
+                            <span class="job-detail-label">Job Number:</span>
+                            <span class="job-detail-value" id="jobNumber"></span>
+                        </div>
+                        <div class="job-detail-item">
+                            <span class="job-detail-label">Quote Number:</span>
+                            <span class="job-detail-value" id="quoteNumber"></span>
+                        </div>
+                        <div class="job-detail-item">
+                            <span class="job-detail-label">Job Reference:</span>
+                            <span class="job-detail-value" id="jobReference"></span>
+                        </div>
+                        <div class="job-detail-item">
+                            <span class="job-detail-label">Project:</span>
+                            <span class="job-detail-value" id="projectName"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="quote-actions">
+                    <button class="btn btn-secondary" onclick="goBack()">Back to Job</button>
+                    <button class="btn btn-outline" onclick="generateQuotePDF()" id="pdfButton" style="display: none;">
+                        <span class="btn-icon">📄</span>
+                        Generate PDF
+                    </button>
+                    <button class="btn btn-primary" onclick="saveQuote()">Save Quote</button>
+                </div>
+            </div>
+            
+            <div class="quote-content">
+                <!-- Items Section -->
+                <div class="items-section">
+                    <div class="items-header">
+                        <h2>Quote Items</h2>
+                    </div>
+                    
+                    <div class="items-container" id="itemsContainer">
+                        <!-- Items will be added here dynamically -->
+                    </div>
+                    
+                    <div class="add-item-container">
+                        <button class="btn btn-primary" onclick="addItem()">
+                            <span class="btn-icon">+</span>
+                            Add Item
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Totals Section -->
+                <div class="totals-section">
+                    <div class="totals-row">
+                        <span class="total-label">Total Cost (Excl. GST):</span>
+                        <span class="total-value" id="totalExclGST">$0.00</span>
+                    </div>
+                    <div class="totals-row">
+                        <span class="total-label">Total Cost (Incl. GST):</span>
+                        <span class="total-value" id="totalInclGST">$0.00</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Item Template (hidden) -->
+    <template id="itemTemplate">
+        <div class="item-row" data-item-id="">
+            <div class="item-header">
+                <div class="item-title-section">
+                    <button class="collapse-toggle-btn" onclick="toggleItemCollapse(this)">
+                        <span class="collapse-icon">▼</span>
+                    </button>
+                    <div class="item-title-display">
+                        <span class="item-number"></span>
+                        <span class="item-reference-display"></span>
+                        <span class="item-product-name">(No product selected)</span>
+                        <button class="edit-reference-btn" onclick="editItemReference(this)">+ edit reference</button>
+                    </div>
+                    <div class="item-reference-edit" style="display: none;">
+                        <input type="text" class="item-reference-input" placeholder="Enter reference">
+                        <button class="save-reference-btn" onclick="saveItemReference(this)">Save</button>
+                        <button class="cancel-reference-btn" onclick="cancelEditReference(this)">Cancel</button>
+                    </div>
+                </div>
+                <button class="btn btn-sm btn-danger" onclick="removeItem(this)">Remove</button>
+            </div>
+            
+            <div class="item-content">
+                <!-- Product Selection -->
+                <div class="product-selection">
+                    <div class="product-selection-row">
+                        <label class="product-selection-label">Product Category</label>
+                        <select class="product-category-select" onchange="updateProducts(this)">
+                            <option value="">Select Category</option>
+                        </select>
+                    </div>
+                    <div class="product-selection-row">
+                        <label class="product-selection-label">Product</label>
+                        <select class="product-select" onchange="loadProductVariables(this)">
+                            <option value="">Select Product</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Product Variables -->
+                <div class="product-variables" style="display: none;">
+                    <div class="product-variables-header">
+                        <h4>Product Variables</h4>
+                        <button class="btn btn-sm btn-secondary" onclick="openProductEditor(this)">
+                            <span class="btn-icon">+</span>
+                            Edit Variables
+                        </button>
+                    </div>
+                    <div class="variables-container">
+                        <!-- Variables will be loaded here -->
+                    </div>
+                </div>
+
+                <!-- Item Details -->
+                <div class="item-details">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Width (m)</label>
+                            <input type="number" class="item-length" step="0.01" min="0">
+                        </div>
+                        <div class="form-group">
+                            <label>Height (m)</label>
+                            <input type="number" class="item-height" step="0.01" min="0">
+                        </div>
+                        <div class="form-group">
+                            <label>Quantity</label>
+                            <input type="number" class="item-quantity" step="1" min="1" value="1">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Notes</label>
+                            <textarea class="item-notes" rows="3" placeholder="Enter notes"></textarea>
+                        </div>
+                        <div class="cost-section">
+                            <div class="form-group">
+                                <label>Cost (Excl. GST)</label>
+                                <input type="number" class="item-cost-excl" step="0.01" min="0">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="item-footer">
+                <div class="item-cost-display">
+                    <span class="item-cost-label">Item Total (Excl. GST):</span>
+                    <span class="item-cost-value">$0.00</span>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <!-- Product Modal -->
+    <div class="modal" id="productModal">
+        <div class="modal-content">
+            <button type="button" class="btn btn-delete" id="deleteProductBtn" onclick="deleteProduct(currentProduct.product_id)" style="display: none;">Delete Product</button>
+            <div class="modal-header">
+                <div class="editable-title-container">
+                    <button class="edit-title-btn" id="editTitleBtn" onclick="toggleTitleEdit()">+edit</button>
+                    <h2 id="productModalTitle" class="editable-title">Add New Product</h2>
+                    <input type="text" id="productTitleInput" class="title-input" style="display: none;" onblur="saveTitleEdit()" onkeypress="handleTitleKeypress(event)">
+                </div>
+                <div class="modal-header-right">
+                    <div class="category-container">
+                        <div class="category-header" onclick="toggleCategoryDropdown()">
+                            <span id="categoryDisplay" class="category-display">Select Category</span>
+                            <span class="dropdown-arrow"></span>
+                        </div>
+                        <div id="categoryDropdown" class="category-dropdown" style="display: none;">
+                            <!-- Categories will be populated by JavaScript -->
+                        </div>
+                        <input type="hidden" id="productCategory" name="product_category_id" required>
+                    </div>
+                    <button class="modal-close" onclick="hideProductModal()">&times;</button>
+                </div>
+            </div>
+            <form id="productForm" class="modal-form">
+                <input type="hidden" id="productId" name="product_id">
+                <div class="form-group">
+                    <div class="product-variables-list" id="productVariablesList">
+                        <div class="product-variables-header">
+                            <h3>Product Variables</h3>
+                        </div>
+                        <div class="product-variables-content">
+                            <!-- Variables will be populated by JavaScript -->
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-actions">
+                    <div class="modal-actions-right">
+                        <button type="button" class="btn btn-secondary" onclick="hideProductModal()">Cancel</button>
+                        <button type="submit" class="btn btn-primary" id="productSubmitBtn">Add Product</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Add/Edit Variable Modal -->
+    <div class="modal" id="variableModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="variableModalTitle">Add New Variable</h2>
+                <button class="modal-close" onclick="hideVariableModal()">&times;</button>
+            </div>
+            <form id="variableForm" class="modal-form">
+                <input type="hidden" id="variableId" name="variable_id">
+                <div class="form-group">
+                    <label for="variableName">Variable Name</label>
+                    <input type="text" id="variableName" name="name" required>
+                </div>
+                <div class="modal-actions">
+                    <div class="modal-actions-right">
+                        <button type="button" class="btn btn-secondary" onclick="hideVariableModal()">Cancel</button>
+                        <button type="submit" class="btn btn-primary" id="variableSubmitBtn">Add Variable</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Add/Edit Option Modal -->
+    <div class="modal" id="optionModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="optionModalTitle">Add New Option</h2>
+                <button class="modal-close" onclick="hideOptionModal()">&times;</button>
+            </div>
+            <form id="optionForm" class="modal-form">
+                <input type="hidden" id="optionId" name="option_id">
+                <input type="hidden" id="optionVariableId" name="variable_id">
+                <div class="form-group">
+                    <label for="optionName">Option Name</label>
+                    <input type="text" id="optionName" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="optionBaseCost">Base Cost</label>
+                    <input type="number" id="optionBaseCost" name="base_cost" step="0.01" min="0" required>
+                </div>
+                <div class="form-group">
+                    <label for="optionMultiplierCost">Multiplier Cost</label>
+                    <input type="number" id="optionMultiplierCost" name="multiplier_cost" step="0.01" min="0" required>
+                </div>
+                <div class="modal-actions">
+                    <div class="modal-actions-right">
+                        <button type="button" class="btn btn-secondary" onclick="hideOptionModal()">Cancel</button>
+                        <button type="submit" class="btn btn-primary" id="optionSubmitBtn">Add Option</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="/static/font-loader.js"></script>
+    <script src="/static/quote.js"></script>
+</body>
+</html>

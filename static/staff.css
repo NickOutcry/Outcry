@@ -1,0 +1,321 @@
+/* Staff Page Specific Styles - Using Standardized Design System */
+
+.staff-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #000;
+}
+
+.staff-header h1 {
+    font-family: var(--font-joane-ultrabold);
+    font-size: 2.55rem;
+    color: var(--color-text-primary);
+    margin: 0;
+}
+
+/* Staff Grid */
+.staff-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+/* Staff Card */
+.staff-card {
+    background-color: var(--color-background);
+    border: 1px solid #000;
+    border-radius: 0;
+    padding: 1.5rem;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.staff-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    border-color: var(--color-accent);
+}
+
+.staff-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+}
+
+.staff-name {
+    font-size: 1.3rem;
+    font-family: var(--font-futura-medium);
+    font-weight: 500;
+    color: var(--color-text-primary);
+    margin: 0;
+}
+
+.staff-actions {
+    display: flex;
+    gap: 0.5rem;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.staff-card:hover .staff-actions {
+    opacity: 1;
+}
+
+.staff-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.staff-info-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+    color: var(--color-text-secondary);
+    font-family: var(--font-futura-light);
+}
+
+.staff-info-icon {
+    width: 16px;
+    height: 16px;
+    color: var(--color-accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.staff-info-label {
+    font-family: var(--font-futura-medium);
+    font-weight: 500;
+    color: var(--color-text-primary);
+    min-width: 80px;
+}
+
+.staff-info-value {
+    color: var(--color-text-secondary);
+    font-family: var(--font-futura-light);
+}
+
+.staff-address {
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--color-border);
+    font-size: 0.85rem;
+    color: var(--color-text-secondary);
+    line-height: 1.4;
+    font-family: var(--font-futura-light);
+}
+
+/* Small Buttons */
+.btn-sm {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.8rem;
+}
+
+.btn-icon {
+    font-size: 1.1rem;
+    font-weight: bold;
+}
+
+/* Form Row */
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+/* Staff Details Content */
+.staff-details-content {
+    padding: 1.5rem;
+}
+
+.staff-details-section {
+    margin-bottom: 2rem;
+}
+
+.staff-details-section h3 {
+    margin: 0 0 1rem 0;
+    color: var(--color-text-primary);
+    font-size: 1.2rem;
+    font-family: var(--font-joane-ultrabold);
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--color-border);
+}
+
+.staff-details-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+.staff-detail-item {
+    display: flex;
+    flex-direction: column;
+}
+
+.staff-detail-label {
+    font-size: 0.85rem;
+    color: var(--color-text-secondary);
+    margin-bottom: 0.25rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-family: var(--font-futura-light);
+}
+
+.staff-detail-value {
+    font-size: 1rem;
+    color: var(--color-text-primary);
+    font-family: var(--font-futura-medium);
+    font-weight: 500;
+}
+
+.staff-detail-value.empty {
+    color: #999;
+    font-style: italic;
+    font-family: var(--font-futura-light);
+}
+
+/* Assigned Jobs Section */
+.assigned-jobs {
+    margin-top: 2rem;
+}
+
+.jobs-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.job-item {
+    background: #f8f9fa;
+    border: 1px solid var(--color-border);
+    border-radius: 0;
+    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.job-info {
+    flex: 1;
+}
+
+.job-reference {
+    font-family: var(--font-futura-medium);
+    font-weight: 500;
+    color: var(--color-text-primary);
+    margin-bottom: 0.25rem;
+}
+
+.job-details {
+    font-size: 0.85rem;
+    color: var(--color-text-secondary);
+    font-family: var(--font-futura-light);
+}
+
+.job-status {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    border-radius: 0;
+    font-size: 0.8rem;
+    font-family: var(--font-futura-light);
+    font-weight: 300;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.job-status.pending {
+    background: #fff3cd;
+    color: #856404;
+}
+
+.job-status.in-progress {
+    background: #d1ecf1;
+    color: #0c5460;
+}
+
+.job-status.completed {
+    background: #d4edda;
+    color: #155724;
+}
+
+.job-status.cancelled {
+    background: #f8d7da;
+    color: #721c24;
+}
+
+.job-status.on-hold {
+    background: #e2e3e5;
+    color: #383d41;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .staff-header {
+        flex-direction: column;
+        gap: 1rem;
+        align-items: flex-start;
+    }
+    
+    .staff-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    
+    .staff-card {
+        padding: 1rem;
+    }
+    
+    .staff-card-header {
+        flex-direction: column;
+        gap: 1rem;
+        align-items: flex-start;
+    }
+    
+    .staff-actions {
+        opacity: 1;
+        width: 100%;
+        justify-content: flex-end;
+    }
+    
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+    
+    .staff-details-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .job-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+    }
+}
+
+/* Empty State */
+.empty-state {
+    text-align: center;
+    padding: 3rem 1rem;
+    color: var(--color-text-secondary);
+    font-family: var(--font-futura-light);
+}
+
+.empty-state h3 {
+    margin: 0 0 1rem 0;
+    color: var(--color-text-primary);
+    font-size: 1.5rem;
+    font-family: var(--font-joane-ultrabold);
+}
+
+.empty-state p {
+    margin: 0 0 2rem 0;
+    font-size: 1.1rem;
+    font-family: var(--font-futura-light);
+}
