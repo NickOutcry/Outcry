@@ -1,0 +1,435 @@
+/**
+ * Design Tokens
+ * CSS variables for design system
+ * Populated from JSON design tokens
+ */
+
+:root {
+  /* Primary Colors */
+  --color-primary-default: #f5b7a3;
+  --color-primary-hover: #fedcd1;
+  --color-primary-active: #ff7c75;
+  
+  /* Secondary Colors */
+  --color-secondary-default: #8ff599;
+  
+  /* Accent Colors */
+  --color-accent-default: #a967ff;
+  
+  /* Neutral Colors */
+  --color-neutral-100: #ffffff;
+  --color-neutral-200: #f1f1f0;
+  --color-neutral-300: #d8d8d8;
+  --color-neutral-400: #a4a4a4;
+  --color-neutral-500: #555555;
+  --color-neutral-900: #1a1a1a;
+  
+  /* Semantic Colors */
+  --color-semantic-success: #3cc980;
+  --color-semantic-warning: #f9a952;
+  --color-semantic-error: #f70029;
+  --color-semantic-info: #7582bc;
+  --color-semantic-on-primary-text: #ffffff;
+  --color-semantic-on-success-text: #000000;
+  
+  /* Spacing */
+  --spacing-0: 0;
+  --spacing-1: 0.25rem;
+  --spacing-2: 0.5rem;
+  --spacing-3: 0.75rem;
+  --spacing-4: 1rem;
+  --spacing-5: 1.5rem;
+  --spacing-6: 2rem;
+  --spacing-7: 2.5rem;
+  --spacing-8: 3rem;
+  --spacing-9: 4rem;
+  --spacing-10: 5rem;
+  
+  /* Radius */
+  --radius-0: 0;
+  --radius-2: 0.125rem;
+  --radius-4: 0.25rem;
+  --radius-8: 0.5rem;
+  --radius-16: 1rem;
+  --radius-999: 999px;
+  
+  /* Sizing */
+  --sizing-xxs: 0.25rem;
+  --sizing-xs: 0.5rem;
+  --sizing-sm: 0.75rem;
+  --sizing-md: 1rem;
+  --sizing-lg: 1.5rem;
+  --sizing-xl: 2rem;
+  --sizing-2xl: 2.5rem;
+  --sizing-3xl: 3rem;
+  
+  /* Border */
+  --border-none: 0;
+  --border-sm: 1px;
+  --border-md: 2px;
+  --border-lg: 3px;
+  
+  /* Box Shadow */
+  --box-shadow-none: none;
+  --box-shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.07);
+  --box-shadow-md: 0 2px 6px 0 rgba(0, 0, 0, 0.10);
+  --box-shadow-lg: 0 4px 12px 0 rgba(0, 0, 0, 0.12);
+  --box-shadow-xl: 0 8px 24px 0 rgba(0, 0, 0, 0.14);
+  --box-shadow-focus: 0 0 0 3px rgba(0, 100, 255, 0.35);
+  
+  /* Opacity */
+  --opacity-transparent: 0;
+  --opacity-light: 0.04;
+  --opacity-subtle: 0.08;
+  --opacity-medium: 0.16;
+  --opacity-strong: 0.24;
+  --opacity-heavy: 0.4;
+  --opacity-solid: 1;
+  
+  /* Font Family */
+  --font-family-inter: Inter;
+  
+  /* Font Weight */
+  --font-weight-thin: 100;
+  --font-weight-extra-light: 200;
+  --font-weight-light: 300;
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semi-bold: 600;
+  --font-weight-bold: 700;
+  --font-weight-extra-bold: 800;
+  --font-weight-black: 900;
+  
+  /* Line Height */
+  --line-height-xs: 16px;
+  --line-height-sm: 20px;
+  --line-height-md: 24px;
+  --line-height-lg: 28px;
+  --line-height-xl: 32px;
+  --line-height-2xl: 40px;
+  --line-height-3xl: 48px;
+  --line-height-4xl: 56px;
+  --line-height-5xl: 64px;
+  
+  /* Font Size */
+  --font-size-desktop-xxs: 10px;
+  --font-size-desktop-xs: 12px;
+  --font-size-desktop-sm: 14px;
+  --font-size-desktop-md: 16px;
+  --font-size-desktop-lg: 18px;
+  --font-size-desktop-xl: 20px;
+  --font-size-desktop-2xl: 24px;
+  --font-size-desktop-3xl: 30px;
+  --font-size-desktop-4xl: 36px;
+  --font-size-desktop-5xl: 48px;
+  --font-size-desktop-6xl: 60px;
+  --font-size-desktop-7xl: 72px;
+  --font-size-mobile-xxs: 10px;
+  --font-size-mobile-xs: 12px;
+  --font-size-mobile-sm: 14px;
+  --font-size-mobile-md: 16px;
+  --font-size-mobile-lg: 18px;
+  --font-size-mobile-xl: 22px;
+  --font-size-mobile-2xl: 26px;
+  --font-size-mobile-3xl: 32px;
+  --font-size-mobile-4xl: 40px;
+  
+  /* Typography - Display */
+  --typography-display-2xl-font-family: Inter;
+  --typography-display-2xl-font-weight: 700;
+  --typography-display-2xl-font-size: 80px;
+  --typography-display-2xl-line-height: 88px;
+  --typography-display-2xl-letter-spacing: -0.02em;
+  --typography-display-2xl-text-decoration: none;
+  --typography-display-2xl-text-case: none;
+  
+  --typography-display-xl-font-family: Inter;
+  --typography-display-xl-font-weight: 700;
+  --typography-display-xl-font-size: 72px;
+  --typography-display-xl-line-height: 80px;
+  --typography-display-xl-letter-spacing: -0.02em;
+  --typography-display-xl-text-decoration: none;
+  --typography-display-xl-text-case: none;
+  
+  --typography-display-lg-font-family: Inter;
+  --typography-display-lg-font-weight: 700;
+  --typography-display-lg-font-size: 64px;
+  --typography-display-lg-line-height: 72px;
+  --typography-display-lg-letter-spacing: -0.015em;
+  --typography-display-lg-text-decoration: none;
+  --typography-display-lg-text-case: none;
+  
+  --typography-display-md-font-family: Inter;
+  --typography-display-md-font-weight: 600;
+  --typography-display-md-font-size: 56px;
+  --typography-display-md-line-height: 64px;
+  --typography-display-md-letter-spacing: -0.01em;
+  --typography-display-md-text-decoration: none;
+  --typography-display-md-text-case: none;
+  
+  --typography-display-sm-font-family: Inter;
+  --typography-display-sm-font-weight: 600;
+  --typography-display-sm-font-size: 48px;
+  --typography-display-sm-line-height: 56px;
+  --typography-display-sm-letter-spacing: -0.01em;
+  --typography-display-sm-text-decoration: none;
+  --typography-display-sm-text-case: none;
+  
+  /* Typography - Heading */
+  --typography-heading-h1-font-family: Inter;
+  --typography-heading-h1-font-weight: 700;
+  --typography-heading-h1-font-size: 40px;
+  --typography-heading-h1-line-height: 48px;
+  --typography-heading-h1-letter-spacing: -0.01em;
+  --typography-heading-h1-text-decoration: none;
+  --typography-heading-h1-text-case: none;
+  
+  --typography-heading-h2-font-family: Inter;
+  --typography-heading-h2-font-weight: 700;
+  --typography-heading-h2-font-size: 32px;
+  --typography-heading-h2-line-height: 40px;
+  --typography-heading-h2-letter-spacing: -0.005em;
+  --typography-heading-h2-text-decoration: none;
+  --typography-heading-h2-text-case: none;
+  
+  --typography-heading-h3-font-family: Inter;
+  --typography-heading-h3-font-weight: 600;
+  --typography-heading-h3-font-size: 28px;
+  --typography-heading-h3-line-height: 36px;
+  --typography-heading-h3-letter-spacing: -0.003em;
+  --typography-heading-h3-text-decoration: none;
+  --typography-heading-h3-text-case: none;
+  
+  --typography-heading-h4-font-family: Inter;
+  --typography-heading-h4-font-weight: 600;
+  --typography-heading-h4-font-size: 24px;
+  --typography-heading-h4-line-height: 32px;
+  --typography-heading-h4-letter-spacing: 0em;
+  --typography-heading-h4-text-decoration: none;
+  --typography-heading-h4-text-case: none;
+  
+  --typography-heading-h5-font-family: Inter;
+  --typography-heading-h5-font-weight: 600;
+  --typography-heading-h5-font-size: 20px;
+  --typography-heading-h5-line-height: 28px;
+  --typography-heading-h5-letter-spacing: 0em;
+  --typography-heading-h5-text-decoration: none;
+  --typography-heading-h5-text-case: none;
+  
+  --typography-heading-h6-font-family: Inter;
+  --typography-heading-h6-font-weight: 600;
+  --typography-heading-h6-font-size: 18px;
+  --typography-heading-h6-line-height: 24px;
+  --typography-heading-h6-letter-spacing: 0em;
+  --typography-heading-h6-text-decoration: none;
+  --typography-heading-h6-text-case: none;
+  
+  /* Typography - Body */
+  --typography-body-xl-font-family: Inter;
+  --typography-body-xl-font-weight: 400;
+  --typography-body-xl-font-size: 20px;
+  --typography-body-xl-line-height: 28px;
+  --typography-body-xl-letter-spacing: 0em;
+  --typography-body-xl-text-decoration: none;
+  --typography-body-xl-text-case: none;
+  
+  --typography-body-lg-font-family: Inter;
+  --typography-body-lg-font-weight: 400;
+  --typography-body-lg-font-size: 18px;
+  --typography-body-lg-line-height: 26px;
+  --typography-body-lg-letter-spacing: 0em;
+  --typography-body-lg-text-decoration: none;
+  --typography-body-lg-text-case: none;
+  
+  --typography-body-md-font-family: Inter;
+  --typography-body-md-font-weight: 400;
+  --typography-body-md-font-size: 16px;
+  --typography-body-md-line-height: 24px;
+  --typography-body-md-letter-spacing: 0em;
+  --typography-body-md-text-decoration: none;
+  --typography-body-md-text-case: none;
+  
+  --typography-body-sm-font-family: Inter;
+  --typography-body-sm-font-weight: 400;
+  --typography-body-sm-font-size: 14px;
+  --typography-body-sm-line-height: 20px;
+  --typography-body-sm-letter-spacing: 0em;
+  --typography-body-sm-text-decoration: none;
+  --typography-body-sm-text-case: none;
+  
+  --typography-body-xs-font-family: Inter;
+  --typography-body-xs-font-weight: 400;
+  --typography-body-xs-font-size: 12px;
+  --typography-body-xs-line-height: 16px;
+  --typography-body-xs-letter-spacing: 0em;
+  --typography-body-xs-text-decoration: none;
+  --typography-body-xs-text-case: none;
+  
+  --typography-body-xxs-font-family: Inter;
+  --typography-body-xxs-font-weight: 400;
+  --typography-body-xxs-font-size: 10px;
+  --typography-body-xxs-line-height: 14px;
+  --typography-body-xxs-letter-spacing: 0.01em;
+  --typography-body-xxs-text-decoration: none;
+  --typography-body-xxs-text-case: none;
+  
+  /* Typography - Label */
+  --typography-label-lg-font-family: Inter;
+  --typography-label-lg-font-weight: 200;
+  --typography-label-lg-font-size: 16px;
+  --typography-label-lg-line-height: 24px;
+  --typography-label-lg-letter-spacing: 0.005em;
+  --typography-label-lg-text-decoration: none;
+  --typography-label-lg-text-case: none;
+  
+  --typography-label-md-font-family: Inter;
+  --typography-label-md-font-weight: 200;
+  --typography-label-md-font-size: 14px;
+  --typography-label-md-line-height: 20px;
+  --typography-label-md-letter-spacing: 0.01em;
+  --typography-label-md-text-decoration: none;
+  --typography-label-md-text-case: none;
+  
+  --typography-label-sm-font-family: Inter;
+  --typography-label-sm-font-weight: 200;
+  --typography-label-sm-font-size: 12px;
+  --typography-label-sm-line-height: 16px;
+  --typography-label-sm-letter-spacing: 0.02em;
+  --typography-label-sm-text-decoration: none;
+  --typography-label-sm-text-case: none;
+  
+  --typography-label-xs-font-family: Inter;
+  --typography-label-xs-font-weight: 200;
+  --typography-label-xs-font-size: 10px;
+  --typography-label-xs-line-height: 14px;
+  --typography-label-xs-letter-spacing: 0.03em;
+  --typography-label-xs-text-decoration: none;
+  --typography-label-xs-text-case: none;
+  
+  /* Typography - Caption */
+  --typography-caption-sm-font-family: Inter;
+  --typography-caption-sm-font-weight: 400;
+  --typography-caption-sm-font-size: 12px;
+  --typography-caption-sm-line-height: 16px;
+  --typography-caption-sm-letter-spacing: 0em;
+  --typography-caption-sm-text-decoration: none;
+  --typography-caption-sm-text-case: none;
+  
+  --typography-caption-xs-font-family: Inter;
+  --typography-caption-xs-font-weight: 400;
+  --typography-caption-xs-font-size: 10px;
+  --typography-caption-xs-line-height: 14px;
+  --typography-caption-xs-letter-spacing: 0.02em;
+  --typography-caption-xs-text-decoration: none;
+  --typography-caption-xs-text-case: none;
+  
+  /* Typography - Overline */
+  --typography-overline-font-family: Inter;
+  --typography-overline-font-weight: 600;
+  --typography-overline-font-size: 11px;
+  --typography-overline-line-height: 16px;
+  --typography-overline-letter-spacing: 0.08em;
+  --typography-overline-text-decoration: none;
+  --typography-overline-text-case: uppercase;
+  
+  /* Typography - Mobile Display */
+  --typography-mobile-display-lg-font-family: Inter;
+  --typography-mobile-display-lg-font-weight: 700;
+  --typography-mobile-display-lg-font-size: 48px;
+  --typography-mobile-display-lg-line-height: 56px;
+  --typography-mobile-display-lg-letter-spacing: -0.01em;
+  --typography-mobile-display-lg-text-decoration: none;
+  --typography-mobile-display-lg-text-case: none;
+  
+  --typography-mobile-display-md-font-family: Inter;
+  --typography-mobile-display-md-font-weight: 600;
+  --typography-mobile-display-md-font-size: 40px;
+  --typography-mobile-display-md-line-height: 48px;
+  --typography-mobile-display-md-letter-spacing: -0.005em;
+  --typography-mobile-display-md-text-decoration: none;
+  --typography-mobile-display-md-text-case: none;
+  
+  /* Typography - Mobile Heading */
+  --typography-mobile-heading-h1-font-family: Inter;
+  --typography-mobile-heading-h1-font-weight: 700;
+  --typography-mobile-heading-h1-font-size: 32px;
+  --typography-mobile-heading-h1-line-height: 40px;
+  --typography-mobile-heading-h1-letter-spacing: -0.005em;
+  --typography-mobile-heading-h1-text-decoration: none;
+  --typography-mobile-heading-h1-text-case: none;
+  
+  --typography-mobile-heading-h2-font-family: Inter;
+  --typography-mobile-heading-h2-font-weight: 600;
+  --typography-mobile-heading-h2-font-size: 28px;
+  --typography-mobile-heading-h2-line-height: 36px;
+  --typography-mobile-heading-h2-letter-spacing: -0.003em;
+  --typography-mobile-heading-h2-text-decoration: none;
+  --typography-mobile-heading-h2-text-case: none;
+  
+  --typography-mobile-heading-h3-font-family: Inter;
+  --typography-mobile-heading-h3-font-weight: 600;
+  --typography-mobile-heading-h3-font-size: 24px;
+  --typography-mobile-heading-h3-line-height: 32px;
+  --typography-mobile-heading-h3-letter-spacing: 0em;
+  --typography-mobile-heading-h3-text-decoration: none;
+  --typography-mobile-heading-h3-text-case: none;
+  
+  /* Typography - Mobile Body */
+  --typography-mobile-body-lg-font-family: Inter;
+  --typography-mobile-body-lg-font-weight: 400;
+  --typography-mobile-body-lg-font-size: 18px;
+  --typography-mobile-body-lg-line-height: 26px;
+  --typography-mobile-body-lg-letter-spacing: 0em;
+  --typography-mobile-body-lg-text-decoration: none;
+  --typography-mobile-body-lg-text-case: none;
+  
+  --typography-mobile-body-md-font-family: Inter;
+  --typography-mobile-body-md-font-weight: 400;
+  --typography-mobile-body-md-font-size: 16px;
+  --typography-mobile-body-md-line-height: 24px;
+  --typography-mobile-body-md-letter-spacing: 0em;
+  --typography-mobile-body-md-text-decoration: none;
+  --typography-mobile-body-md-text-case: none;
+  
+  --typography-mobile-body-sm-font-family: Inter;
+  --typography-mobile-body-sm-font-weight: 400;
+  --typography-mobile-body-sm-font-size: 14px;
+  --typography-mobile-body-sm-line-height: 20px;
+  --typography-mobile-body-sm-letter-spacing: 0em;
+  --typography-mobile-body-sm-text-decoration: none;
+  --typography-mobile-body-sm-text-case: none;
+  
+  --typography-mobile-body-xs-font-family: Inter;
+  --typography-mobile-body-xs-font-weight: 400;
+  --typography-mobile-body-xs-font-size: 12px;
+  --typography-mobile-body-xs-line-height: 16px;
+  --typography-mobile-body-xs-letter-spacing: 0em;
+  --typography-mobile-body-xs-text-decoration: none;
+  --typography-mobile-body-xs-text-case: none;
+  
+  /* Typography - Mobile Label */
+  --typography-mobile-label-md-font-family: Inter;
+  --typography-mobile-label-md-font-weight: 500;
+  --typography-mobile-label-md-font-size: 14px;
+  --typography-mobile-label-md-line-height: 20px;
+  --typography-mobile-label-md-letter-spacing: 0.01em;
+  --typography-mobile-label-md-text-decoration: none;
+  --typography-mobile-label-md-text-case: none;
+  
+  --typography-mobile-label-sm-font-family: Inter;
+  --typography-mobile-label-sm-font-weight: 600;
+  --typography-mobile-label-sm-font-size: 12px;
+  --typography-mobile-label-sm-line-height: 16px;
+  --typography-mobile-label-sm-letter-spacing: 0.02em;
+  --typography-mobile-label-sm-text-decoration: none;
+  --typography-mobile-label-sm-text-case: uppercase;
+  
+  /* Typography - Mobile Caption */
+  --typography-mobile-caption-font-family: Inter;
+  --typography-mobile-caption-font-weight: 400;
+  --typography-mobile-caption-font-size: 10px;
+  --typography-mobile-caption-line-height: 14px;
+  --typography-mobile-caption-letter-spacing: 0.02em;
+  --typography-mobile-caption-text-decoration: none;
+  --typography-mobile-caption-text-case: none;
+}

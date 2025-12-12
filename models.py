@@ -95,7 +95,17 @@ class Product(Base):
     # Relationships
     category = relationship("ProductCategory", back_populates="products")
     measure_type = relationship("MeasureType")
-    variables = relationship("ProductVariable", back_populates="product")
+    product_variable_assignments = relationship(
+        "ProductProductVariable",
+        back_populates="product",
+        cascade="all, delete-orphan"
+    )
+    variables = relationship(
+        "ProductVariable",
+        secondary="product.product_product_variable",
+        back_populates="products",
+        order_by="ProductProductVariable.display_order"
+    )
     items = relationship("Item", back_populates="product")
     
     def __repr__(self):
@@ -109,12 +119,20 @@ class ProductVariable(Base):
     product_variable_id = Column(Integer, primary_key=True, autoincrement=True)
     name = Column(Text, nullable=False)
     data_type = Column(Text, nullable=False)
-    product_id = Column(Integer, ForeignKey('product.products.product_id'), nullable=False)
     
     # Relationships
-    product = relationship("Product", back_populates="variables")
     options = relationship("VariableOption", back_populates="product_variable")
     item_variables = relationship("ItemVariable", back_populates="product_variable")
+    product_assignments = relationship(
+        "ProductProductVariable",
+        back_populates="product_variable",
+        cascade="all, delete-orphan"
+    )
+    products = relationship(
+        "Product",
+        secondary="product.product_product_variable",
+        back_populates="variables"
+    )
     
     def __repr__(self):
         return f"<ProductVariable(product_variable_id={self.product_variable_id}, name='{self.name}')>"
@@ -136,6 +154,31 @@ class VariableOption(Base):
     
     def __repr__(self):
         return f"<VariableOption(variable_option_id={self.variable_option_id}, name='{self.name}')>"
+
+
+class ProductProductVariable(Base):
+    """Join table to control which variables are assigned to a product and their order"""
+    __tablename__ = 'product_product_variable'
+    __table_args__ = {'schema': 'product'}
+
+    product_product_variable = Column(Integer, primary_key=True, autoincrement=True)
+    product_id = Column(Integer, ForeignKey('product.products.product_id', ondelete='CASCADE'), nullable=False)
+    product_variable_id = Column(Integer, ForeignKey('product.product_variables.product_variable_id', ondelete='CASCADE'), nullable=False)
+    display_order = Column(Integer)
+
+    # Relationships
+    product = relationship("Product", back_populates="product_variable_assignments")
+    product_variable = relationship("ProductVariable", back_populates="product_assignments")
+
+    def __repr__(self):
+        return (
+            f"<ProductProductVariable("
+            f"product_product_variable={self.product_product_variable}, "
+            f"product_id={self.product_id}, "
+            f"product_variable_id={self.product_variable_id}, "
+            f"display_order={self.display_order}"
+            f")>"
+        )
 
 class MeasureType(Base):
     """Measure Type schema for storing measurement types"""
